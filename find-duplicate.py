@@ -33,7 +33,7 @@ def LoadPriorityList():
 
 def DeleteFile(file, folderlist):
     global FolderPriorityMap 
-    print("Deleting Duplicates of: " , file , " From ", folderlist);
+    print("Deleting Duplicates of: " , file , " From ", folderlist)
     # I need to browse through the folderlist
     folder = folderlist[0]
     val = FolderPriorityMap[folder]
