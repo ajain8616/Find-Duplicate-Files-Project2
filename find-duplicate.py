@@ -5,6 +5,7 @@ import os
 ## Initialization Section
 filesPath = {}
 FolderPriorityMap = {}
+deleted_files = []
 
 ## Function Definition
 def LoadFileList(path):
@@ -34,6 +35,7 @@ def LoadPriorityList():
 
 def DeleteFile(file, folderlist):
     global FolderPriorityMap 
+    global deleted_files
     print("Deleting Duplicates of:", file, "From", folderlist)    
     folder = os.path.dirname(folderlist[0])  # Extract folder name
     val = FolderPriorityMap.get(folder, 0)
@@ -45,10 +47,12 @@ def DeleteFile(file, folderlist):
         if FolderPriorityMap.get(current_folder, 0) > val:
             print("Deleting from", fld)
             os.remove(os.path.join(fld, file))  # Remove file
+            deleted_files.append((file, fld))
             deleted = True
         elif FolderPriorityMap.get(current_folder, 0) < val:
             print("Deleting from", folder)
             os.remove(os.path.join(folder, file))  # Remove file
+            deleted_files.append((file, folder))
             folder = current_folder
             val = FolderPriorityMap.get(folder, 0)
             deleted = True
@@ -83,7 +87,21 @@ def checkDuplicateFolderFiles():
     else:
         ShowDuplicateFiles()
 
+def deletedFilesList():
+    global deleted_files
+    return deleted_files
+
 ## Execution Starts Here
 LoadFileList("./test")
 LoadPriorityList()
 checkDuplicateFolderFiles()
+deleted_files = deletedFilesList()
+
+# Function to print deleted files and folders
+def deletedFilesFolder():
+    print("Deleted Files and their respective Folders:")
+    for file, folder in deleted_files:
+        print(f"File: {file}, Folder: {folder}")
+
+# Call the function to display deleted files and folders
+deletedFilesFolder()
