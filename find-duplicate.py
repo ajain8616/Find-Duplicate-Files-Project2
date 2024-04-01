@@ -91,17 +91,14 @@ def deletedFilesList():
     global deleted_files
     return deleted_files
 
-## Execution Starts Here
-LoadFileList("./test")
-LoadPriorityList()
-checkDuplicateFolderFiles()
-deleted_files = deletedFilesList()
-
-# Function to print deleted files and folders
 def deletedFilesFolder():
     print("Deleted Files and their respective Folders:")
     for file, folder in deleted_files:
         print(f"File: {file}, Folder: {folder}")
 
-# Call the function to display deleted files and folders
+## Execution Starts Here
+LoadFileList("./")
+LoadPriorityList()
+checkDuplicateFolderFiles()
+deleted_files = deletedFilesList()
 deletedFilesFolder()
